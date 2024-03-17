@@ -1,0 +1,42 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.6.12 <0.9.0;
+
+contract Owner {
+
+    address public owner;
+    address[] public owners;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    receive() external payable {}
+
+    modifier isOwner() {
+        bool containOwner = false;
+        for(uint i = 0; i < owners.length; i++) {
+            if(msg.sender == owners[i])
+                containOwner = true;
+                break;
+        }
+
+        require(containOwner, "Wallet not owner");
+        _;
+
+    }
+
+    function withdraw(uint sum) public isOwner {
+        payable(owner).transfer(sum);
+    }
+
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+
+    function addOwner(address newOwner) public {
+        require(msg.sender == owner, "WALLET-not-owner");
+        owners.push(newOwner);
+    }
+
+
+}
