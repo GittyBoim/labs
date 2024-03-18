@@ -1,23 +1,24 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.6.12 <0.9.0;
 
-contract Owner {
+contract Wallet {
 
-    address public owner;
-    address[3] public gabaiim;
+    address public mainOwner;
+    mapping (address => bool) public owners;
+    uint countOwners = 0;
 
     constructor() {
-        owner = msg.sender;
+        mainOwner = msg.sender;
     }
 
     receive() external payable {}
 
-    modifier isOwnerOrGabai() {
-        require(msg.sender == gabaiim[0] || msg.sender == gabaiim[1] || msg.sender == gabaiim[2] || msg.sender == owner, "Wallet not owner or gabai");
+    modifier isOwner {
+        require(msg.sender == mainOwner || owners[msg.sender],"Wallet not owner");
         _;
     }
 
-    function withdraw(uint sum) public isOwnerOrGabai {
+    function withdraw(uint sum) public isOwner {
         payable(msg.sender).transfer(sum);
     }
 
@@ -25,14 +26,12 @@ contract Owner {
         return address(this).balance;
     }
 
-    function addGabai(address newGabai) public {
-        require(msg.sender == owner, "WALLET-not-owner");
-        if(gabaiim[0] == address(0))
-            gabaiim[0] == newGabai;
-        if(gabaiim[1] == address(0))
-            gabaiim[1] == newGabai;
-        if(gabaiim[2] == address(0))
-            gabaiim[2] == newGabai;
-        revert 
+    function addOwner(address newOwner) public {
+
+        require(msg.sender == mainOwner, "Wallet not owner");
+        require(countOwners < 3, "Cant add owners");
+        require(owners[newOwner], "Owner already exists");
+        owners[newOwner] = true;
+        countOwners++;
     }
 }
