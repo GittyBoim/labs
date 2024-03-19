@@ -1,17 +1,37 @@
-// SPDX-License-Identifier: Unlicense
-pragma solidity 0.8.20;
-
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.6.12 <0.9.0;
 
 contract Wallet {
-    address payable public owner;
 
-    constructor(){
-        owner = payable(msg.sender);        
+    address public mainOwner;
+    mapping (address => bool) public owners;
+    uint countOwners = 0;
+
+    constructor() {
+        mainOwner = msg.sender;
     }
 
     receive() external payable {}
 
-    function withdraw(uint amount) public {
-        owner.transfer(amount);
+    modifier isOwner {
+        require(msg.sender == mainOwner || owners[msg.sender],"Wallet not owner");
+        _;
+    }
+
+    function withdraw(uint sum) public isOwner {
+        payable(msg.sender).transfer(sum);
+    }
+
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+
+    function addOwner(address newOwner) public {
+
+        require(msg.sender == mainOwner, "Wallet not owner");
+        require(countOwners < 3, "Cant add owners");
+        require(owners[newOwner], "Owner already exists");
+        owners[newOwner] = true;
+        countOwners++;
     }
 }
