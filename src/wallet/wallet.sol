@@ -30,7 +30,7 @@ contract Wallet {
 
         require(msg.sender == mainOwner, "Wallet not owner");
         require(countOwners < 3, "Cant add owners");
-        require(owners[newOwner], "Owner already exists");
+        require(!owners[newOwner], "Owner already exists");
         owners[newOwner] = true;
         countOwners++;
     }
