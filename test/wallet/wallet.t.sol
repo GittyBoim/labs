@@ -13,10 +13,18 @@ contract WalletTest is Test {
         w = new Wallet();
     }
 
-    function testAddOwner() public{
+    function testAddOwner() public {
         w.addOwner(address(1));
         assertEq(w.countOwners(), 1);
         assertEq(w.owners(address(1)), true);
+    }
+
+    function testAddMOreThenThreeOwners() public {
+        w.addOwner(address(1));
+        w.addOwner(address(2));
+        w.addOwner(address(3));
+        vm.expectRevert('There are already 3 owners cant add owner');
+        w.addOwner(address(4));
     }
 
     function testDeposit() public {
@@ -38,7 +46,7 @@ contract WalletTest is Test {
 
     function testNotOwnerCantWithdraw() public {
         payable(address(w)).transfer(100);
-        vm.expectRevert('Wallet not owner');
+        vm.expectRevert('Wallet not mainOwner');
         vm.prank(address(1));
         w.withdraw(100);
     }
