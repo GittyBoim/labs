@@ -24,7 +24,7 @@ contract WalletTest is Test {
         assertEq(w.getBalance(), sum);
     }
 
-    function addOwner() public{
+    function testAddOwner() public{
         w.addOwner(address(1));
         assertEq(w.getCountOwners(), 1);
     }
