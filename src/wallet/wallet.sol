@@ -13,14 +13,6 @@ contract Wallet {
 
     receive() external payable {}
 
-     function getCountOwners() public view returns (uint) {
-        return countOwners;
-    }
-
-    function getMainOwner() public view returns (address) {
-        return mainOwner;
-    }
-
     function getBalance() public view returns (uint) {
         return address(this).balance;
     }
