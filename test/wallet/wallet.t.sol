@@ -14,9 +14,34 @@ contract WalletTest is Test {
         w = new Wallet();
     }
 
-    function testDeposit() public {
+    function testGetBalance() public {
+        assertEq(w.getBalance(), 0);
     }
 
-    function testWithdraw() public {
+    function testDeposit() public {
+        uint sum = 10000000;
+        payable(address(w)).transfer(sum);
+        assertEq(w.getBalance(), sum);
     }
+
+    function addOwner() public{
+        w.addOwner(address(1));
+        assertEq(w.getCountOwners(), 1);
+    }
+
+   function testWithdraw() public {
+       //uint sum = 100;
+       //uint balance = 150;
+       //payable(address(w)).transfer(balance);
+       //w.withdraw(sum);
+       //assertEq(w.getBalance(), balace - sum);
+   }
+
+   function testWithdrawWithoutEnoughMoney() public {
+       uint sum = 50;
+       uint balance = 10;
+       payable(w).transfer(balance);
+       vm.expectRevert();
+       w.withdraw(sum);
+   }
 }
