@@ -26,7 +26,7 @@ contract Wallet {
     }
 
     modifier isOwner {
-        require(msg.sender == mainOwner || owners[msg.sender], "Wallet not owner");
+        require(msg.sender == mainOwner || owners[msg.sender], "Wallet not mainOwner");
         _;
     }
 
@@ -35,9 +35,8 @@ contract Wallet {
     }
 
     function addOwner(address newOwner) public {
-
-        require(msg.sender == mainOwner, "Wallet not owner");
-        require(countOwners < 3, "Cant add owners");
+        require(msg.sender == mainOwner, "Wallet not mainOwner");
+        require(countOwners < 3, "There are already 3 owners cant add owner");
         require(!owners[newOwner], "Owner already exists");
         owners[newOwner] = true;
         countOwners++;
