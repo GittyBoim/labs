@@ -5,7 +5,7 @@ contract Wallet {
 
     address public mainOwner;
     mapping (address => bool) public owners;
-    uint countOwners = 0;
+    uint public countOwners = 0;
 
     constructor() {
         mainOwner = msg.sender;
@@ -34,4 +34,13 @@ contract Wallet {
         owners[newOwner] = true;
         countOwners++;
     }
+
+    function getCountOwners() public view returns (uint) {
+        return countOwners;
+    }
+
+    function getMainOwner() public view returns (address) {
+        return mainOwner;
+    }
+
 }
