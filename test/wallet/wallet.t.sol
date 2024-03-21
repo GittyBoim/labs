@@ -47,7 +47,7 @@ contract WalletTest is Test {
     function testNotOwnerCantWithdraw() public {
         payable(address(w)).transfer(100);
         vm.expectRevert('Wallet not mainOwner');
-        vm.prank(address(1));
+        vm.prank(vm.addr(1));
         w.withdraw(100);
     }
 
