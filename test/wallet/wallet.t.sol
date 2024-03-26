@@ -19,7 +19,7 @@ contract WalletTest is Test {
         assertEq(w.owners(address(1)), true);
     }
 
-    function testAddMOreThenThreeOwners() public {
+    function testAddMOreThanThreeOwners() public {
         w.addOwner(address(1));
         w.addOwner(address(2));
         w.addOwner(address(3));
