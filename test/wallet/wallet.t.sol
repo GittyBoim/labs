@@ -35,6 +35,10 @@ contract WalletTest is Test {
     }
 
     function testWithdraw() public {
+        console.log("this msg.sender", address(this), msg.sender);
+        console.log("w this", address(w.mainOwner()), address(this));
+        console.log("this balance", address(this).balance);
+        console.log("this address", address(this));
        uint sum = 100;
        uint balance = 150;
        payable(address(w)).transfer(balance);
