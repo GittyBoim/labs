@@ -27,6 +27,21 @@ contract WalletTest is Test {
         w.addOwner(address(4));
     }
 
+    function testDeletOwner() public {
+        address owner =vm.addr(1);
+        w.addOwner(owner);
+        assertEq(w.owners(owner), true);
+        assertEq(w.countOwners(), 1);
+        w.deleteOwner(owner);
+        assertEq(w.owners(owner), false);
+        assertEq(w.countOwners(), 0);
+    }
+
+    function testDeleteNotExsistUser() public {
+        vm.expectRevert("Owner not exists");
+        w.deleteOwner(vm.addr(1));
+    }
+
     function testDeposit() public {
         uint balance = w.getBalance();
         uint sum = 10000000;
