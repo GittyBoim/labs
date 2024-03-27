@@ -34,4 +34,10 @@ contract Wallet {
         countOwners++;
     }
 
+    function deleteOwner(address owner) public {
+        require(msg.sender == mainOwner, "Wallet not mainOwner");
+        require(owners[owner], "Owner not exists");
+        delete owners[owner];
+        countOwners --;
+    }
 }
