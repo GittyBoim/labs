@@ -18,7 +18,7 @@ contract Wallet {
     }
 
     modifier isOwner {
-        require(msg.sender == mainOwner || owners[msg.sender], "Wallet not mainOwner");
+        require(msg.sender == mainOwner || owners[msg.sender], "Wallet not owner");
         _;
     }
 
