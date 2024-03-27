@@ -27,7 +27,7 @@ contract WalletTest is Test {
         w.addOwner(address(4));
     }
 
-    function testDeletOwner() public {
+    function testDeleteOwner() public {
         address owner =vm.addr(1);
         w.addOwner(owner);
         assertEq(w.owners(owner), true);
