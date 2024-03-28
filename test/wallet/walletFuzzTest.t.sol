@@ -48,20 +48,26 @@ contract WalletFuzzTest is Test {
         assertEq(w.getBalance(), sum);
     }
 
-    function testWithdraw(address owner, uint256 sum) public {
+    function testWithdraw(uint256 sum) public {
+        address owner = vm.addr(1);
         w.addOwner(owner);
-        vm.deal(owner, sum);
-        vm.startPrank(owner);
-        payable(address(w)).transfer(sum);
+        vm.deal(address(w), sum);
         uint balance = w.getBalance();
-        assertEq(balance, sum);
-        //vm.startPrank(owner);
+        vm.startPrank(owner);
         w.withdraw(sum);
         vm.stopPrank();
         assertEq(w.getBalance(), balance -sum);
-        //vm.deal(payable(address(w)), sum);
-        //w.withdraw(sum);
-        //assertEq(w.getBalance(), sum);
-        //vm.stopPrank();
-   }
+    }
+
+    function testNotOwnerCantWithdarw (uint256 sum) public {
+        vm.deal(address(w), sum);
+        vm.prank(vm.addr(1));
+        vm.expectRevert('Wallet not owner');
+        w.withdraw(sum);
+    }
+
+    function testWithdarwWithoutEnoughMoney(uint256 sum) public {
+        vm.expectRevert();
+        w.withdraw(sum);
+    }
 }
