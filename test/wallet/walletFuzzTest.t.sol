@@ -69,5 +69,8 @@ contract WalletFuzzTest is Test {
     function testWithdarwWithoutEnoughMoney(uint256 sum) public {
         vm.expectRevert();
         w.withdraw(sum);
+
+
+        gitty
     }
 }
