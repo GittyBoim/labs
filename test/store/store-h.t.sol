@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Unlicense
+//SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.15;
 
 import "foundry-huff/HuffDeployer.sol";
@@ -21,9 +21,9 @@ contract SimpleStoreTest is Test {
         console.log(s.getValue());
         assertEq(value, s.getValue());
     }
-}
+ }
 
-interface Store {
-    function setValue(uint256) external;
-    function getValue() external returns (uint256);
+ interface Store {
+    function setValue(uint256) external;    
+    function getValue() external returns (uint256); 
 }
