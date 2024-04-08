@@ -47,7 +47,7 @@ contract MyToken is IERC20 {
     }
 
     function symbol() external view returns (string memory) {
-        return 'Coin';
+        return "Coin";
     }
 
     function decimals() external view returns (uint8) {

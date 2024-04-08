@@ -8,7 +8,7 @@ struct User {
     uint time;
 }
 
-contract stakingc {
+contract stakingContract {
 
     uint public reward; 
 
