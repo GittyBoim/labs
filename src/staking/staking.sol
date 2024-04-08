@@ -25,14 +25,14 @@ contract stakingc {
     function stake(uint amount) public {
         staking[msg.sender].amount += amount;
         staking[msg.sender].time = block.timestamp;
-        t.transfer(address(this), amount);
+        t.transferFrom(msg.sender, address(this), amount);
     }
 
-    function restake() public {
+    function withdarw() public {
         uint amount = staking[msg.sender].amount;
         staking[msg.sender].amount = 0;
         reward -= calcReward();
-        t.transferFrom(address(this), msg.sender, amount + calcReward());
+        t.transfer(msg.sender, amount + calcReward());
     }
 
     function calcReward() public view returns (uint256) {
