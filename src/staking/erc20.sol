@@ -39,10 +39,11 @@ contract MyToken is IERC20 {
         allowance[from][msg.sender] -= amount;
         balanceOf[from] -= amount;
         balanceOf[to] += amount;
+        return true;
     }
 
     function name() external view returns (string memory) {
-        return "rr";
+        return "STK";
     }
 
     function symbol() external view returns (string memory) {
@@ -52,10 +53,9 @@ contract MyToken is IERC20 {
     function decimals() external view returns (uint8) {
         return 1;
     }
-
-    function staking(uint amount) {
-        balanceOf[msg.sendr] -= amount;
-        stake[msg.sender] += amount;
-    }
     
+    function mint(address to, uint amount) external {
+        balanceOf[to] += amount;
+        totalSupply += amount;
+    }
 }

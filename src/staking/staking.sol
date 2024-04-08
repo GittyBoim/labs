@@ -1,36 +1,45 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.6.12 <0.9.0;
 
-ipmort './erc20.sol';
+import "./erc20.sol";
 
 struct User {
     uint amount;
     uint time;
 }
 
-contract staking {
+contract stakingc {
 
-    uint reward =1000000;
+    uint public reward; 
 
-    uint toatalSupplay;
-
-    mapping (address => User) staking;
+    mapping (address => User) public staking;
     
-    IERC20 c;
+    MyToken t;
 
     constructor(address _token) public {
-        token= IERC20(_token);
+        t = MyToken(_token);
+        t.mint(address(this), 1000000);
+        reward = 1000000;
     } 
 
     function stake(uint amount) public {
         staking[msg.sender].amount += amount;
-        c.transferFrom(address(this), amount);
+        staking[msg.sender].time = block.timestamp;
+        t.transfer(address(this), amount);
     }
 
-    function withdraw() public {
-        amount = 
-        staking[msg.sender] -= amount;
-        c.transfer(msg.sender, amount);
+    function restake() public {
+        uint amount = staking[msg.sender].amount;
+        staking[msg.sender].amount = 0;
+        reward -= calcReward();
+        t.transferFrom(address(this), msg.sender, amount + calcReward());
+    }
+
+    function calcReward() public view returns (uint256) {
+        if(block.timestamp - staking[msg.sender].time < 7)
+            return 0;
+        uint userReward = (staking[msg.sender].amount / (t.balanceOf(address(this)) - reward)) * reward;
+        return userReward;
     }
 
 }
