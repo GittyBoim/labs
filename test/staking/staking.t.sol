@@ -33,8 +33,8 @@ contract staking is Test {
         t.approve(address(s), 50);
         s.stake(50);
         assertEq(50, t.balanceOf(address(this)));
+        vm.expectRevert("Cant withdraw before 7 days");
         s.withdarw();
-        assertEq(100, t.balanceOf(address(this)));
     }
 
     
