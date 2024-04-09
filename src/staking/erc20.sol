@@ -11,6 +11,17 @@ contract MyToken is IERC20 {
 
     mapping (address=> mapping(address => uint)) public allowance;
 
+    uint wad = 1e18;
+    
+    address owner;
+
+    uint totalOwnerMint;
+
+    constructor() public {
+        owner = msg.sender;
+        totalOwnerMint = 0;
+    }
+
 
     // function totalSupply() external view returns (uint256) {
     //     return totalSupply;

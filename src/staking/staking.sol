@@ -16,7 +16,7 @@ contract stakingContract {
 
     MyToken t;
 
-    uint wad = 1000000000000000000;
+    uint wad = 1e18;
 
     constructor(address _token) public {
         t = MyToken(_token);

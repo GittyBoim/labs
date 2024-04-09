@@ -10,7 +10,7 @@ contract staking is Test {
 
     stakingContract s;
     MyToken t;
-    uint wad = 1000000000000000000;
+    uint wad = 1e18;
 
     function setUp() public {
         t = new MyToken();
