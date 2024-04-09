@@ -9,7 +9,7 @@ import "@hack/staking/erc20.sol";
 contract staking is Test {
 
     stakingContract s;
-    MyToken immutable t;
+    MyToken t;
     uint wad = 1000000000000000000;
 
     function setUp() public {
