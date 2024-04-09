@@ -20,8 +20,8 @@ contract stakingContract {
 
     constructor(address _token) public {
         t = MyToken(_token);
-        t.mint(address(this), 1000000 *  wad);
-        reward = 1000000 * wad;
+        t.mint(address(this), 1000000 *  1e18);
+        reward = 1000000 * 1e18;
     }
 
     function stake(uint amount) public {

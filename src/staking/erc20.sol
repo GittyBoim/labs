@@ -10,8 +10,6 @@ contract MyToken is IERC20 {
     mapping(address => uint)  public balanceOf;
 
     mapping (address=> mapping(address => uint)) public allowance;
-
-    uint wad = 1e18;
     
     address owner;
 
@@ -22,24 +20,11 @@ contract MyToken is IERC20 {
         totalOwnerMint = 0;
     }
 
-
-    // function totalSupply() external view returns (uint256) {
-    //     return totalSupply;
-    // }
-
-    // function balanceOf(address account) external view returns (uint256) {
-    //     return balanceOf[account];
-    // }
-
     function transfer(address to, uint256 amount) external returns (bool) {
         balanceOf[msg.sender] -= amount;
         balanceOf[to] += amount;
         return true;
     }
-
-    // function allowance(address owner, address spender) external view returns (uint256) {
-    //     return allowance[owner][spender];
-    // }
 
     function approve(address spender, uint256 amount) external returns (bool) {
         allowance[msg.sender][spender] = amount;
