@@ -3,7 +3,7 @@ pragma solidity >=0.6.12 <0.9.0;
 
 import "./erc20.sol";
 
-struct User {
+struct Staking {
     uint amount;
     uint time;
 }
@@ -12,7 +12,7 @@ contract stakingContract {
 
     uint public reward; 
 
-    mapping (address => User) public staking;
+    mapping (address => Staking) public staking;
     
     MyToken t;
 
