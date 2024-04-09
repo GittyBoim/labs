@@ -25,6 +25,7 @@ contract stakingContract {
     }
 
     function stake(uint amount) public {
+        require(amount > 0, "Cant stack this amount");
         staking[msg.sender].amount += amount;
         staking[msg.sender].time = block.timestamp;
         t.transferFrom(msg.sender, address(this), amount);
