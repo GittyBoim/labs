@@ -9,7 +9,7 @@ import "@hack/staking/erc20.sol";
 contract staking is Test {
 
     stakingContract s;
-    MyToken t;
+    MyToken immutable t;
     uint wad = 1000000000000000000;
 
     function setUp() public {
@@ -47,6 +47,5 @@ contract staking is Test {
         assertEq(t.balanceOf(address(this)), amount + 1000000 * wad * 2 / 100);
         
     }
-
     
 }
