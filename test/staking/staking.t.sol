@@ -10,6 +10,7 @@ contract staking is Test {
 
     stakingContract s;
     MyToken t;
+    uint wad = 1000000000000000000;
 
     function setUp() public {
         t = new MyToken();
@@ -28,13 +29,23 @@ contract staking is Test {
         assertEq(t.balanceOf(address(this)), 0);
     }
 
-    function testWithdraw() public {
+    function testWithdrawBefor7Days() public {
         t.mint(address(this), 100);
-        t.approve(address(s), 50);
-        s.stake(50);
-        assertEq(50, t.balanceOf(address(this)));
-        vm.expectRevert("Cant withdraw before 7 days");
+        t.approve(address(s), 100);
+        s.stake(100);
+        vm.expectRevert("Cand withdraw befor 7 days");
         s.withdarw();
+    }
+
+    function testWithdraw() public {
+        uint amount = 100 * wad;
+        t.mint(address(this), amount);
+        t.approve(address(s), amount);
+        s.stake(amount);
+        vm.warp(block.timestamp + 7 days);
+        s.withdarw();
+        assertEq(t.balanceOf(address(this)), amount + 1000000 * wad * 2 / 100);
+        
     }
 
     
