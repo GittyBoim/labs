@@ -43,11 +43,11 @@ contract MyToken is IERC20 {
     }
 
     function symbol() external view returns (string memory) {
-        return "Coin";
+        return "STK";
     }
 
     function decimals() external view returns (uint8) {
-        return 1;
+        return 18;
     }
     
     function mint(address to, uint amount) external {
