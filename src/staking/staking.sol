@@ -16,11 +16,9 @@ contract stakingContract {
 
     MyToken t;
 
-    uint wad = 1e18;
-
     constructor(address _token) public {
         t = MyToken(_token);
-        t.mint(address(this), 1000000 *  1e18);
+        t.mint(address(this), 1000000 * 1e18);
         reward = 1000000 * 1e18;
     }
 
@@ -34,15 +32,19 @@ contract stakingContract {
     function withdarw() public {
         uint amount = staking[msg.sender].amount;
         amount += calcReward();
-        staking[msg.sender].amount = 0;
         reward -= calcReward();
+        staking[msg.sender].amount = 0;
         t.transfer(msg.sender, amount);
     }
 
     function calcReward() public view returns (uint256) {
-        require(block.timestamp - staking[msg.sender].time >= 7, "Cand withdraw befor 7 days");
-        uint userReward = (staking[msg.sender].amount / (t.balanceOf(address(this)) - reward)) * reward * 2 / 100;
+        require(block.timestamp - staking[msg.sender].time >= 7 days, "Cand withdraw befor 7 days");
+        uint userReward = ((staking[msg.sender].amount * 1e18) / (t.balanceOf(address(this)) - reward)) * reward * 2 / 100 / 1e18;
         return userReward;
+    }
+
+    function getAmount(address user) public returns(uint) {
+        return staking[user].amount;
     }
 
 }
