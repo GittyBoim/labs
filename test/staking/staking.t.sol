@@ -8,12 +8,12 @@ import "@hack/staking/erc20.sol";
 
 contract staking is Test {
 
-    stakingContract s;
+    StakingContract s;
     MyToken t;
 
     function setUp() public {
         t = new MyToken();
-        s = new stakingContract(address(t));
+        s = new StakingContract(address(t));
     }
 
     function testMint() public {
@@ -33,7 +33,7 @@ contract staking is Test {
         t.mint(address(this), 100);
         t.approve(address(s), 100);
         s.stake(100);
-        vm.expectRevert("Cand withdraw befor 7 days");
+        vm.expectRevert("cand withdraw befor 7 days");
         s.withdarw();
     }
 

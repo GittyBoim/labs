@@ -50,7 +50,7 @@ contract MyToken is IERC20 {
         return 18;
     }
     
-    function mint(address to, uint amount) external {
+    function mint(address to, uint256 amount) external {
         balanceOf[to] += amount;
         totalSupply += amount;
     }
