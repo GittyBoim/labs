@@ -31,7 +31,7 @@ contract Action {
 
     function startAuction(address _NFT, uint _tokenId, address _token, uint initialBid, uint _end, address _seller) public isOwner {
 
-        require(NFT.ownerOf(tokenId) == seller, "msg.sender not tokenId owner");
+        require(NFT.ownerOf(tokenId) == seller, "msg.sender not nft token owner");
         require(_end < block.timestamp, "invalid end date");
         require(!start, "Already there is auction");
 
@@ -70,5 +70,5 @@ contract Action {
         NFT.transferFrom(address(this), maxBidder, tokenId);
         token.transfer(seller, maxBid);
     }
-    
+
 }
