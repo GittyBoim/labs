@@ -49,7 +49,7 @@ contract Action {
 
     function suggest(uint amount) public {
 
-        require(start && block.timestamp <= end);
+        require(start && block.timestamp < end);
         require(amount > maxBid, "the bid is lower than the max");
 
         token.transferFrom(msg.sender, address(this), amount);
