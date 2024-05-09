@@ -16,7 +16,7 @@ contract Action {
     address seller;
     address public maxBidder;
     uint public maxBid;
-    bool public start;
+    bool public start = false;
     uint public end;
 
 
