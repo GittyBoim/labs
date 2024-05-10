@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.6.12 <0.9.0;
 
-import "@hack/tokens/erc20.sol";
+import "@hack/tokens/ERC20.sol";
 
 struct Staking {
     uint amount;
