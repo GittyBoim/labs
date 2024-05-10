@@ -3,7 +3,7 @@ pragma solidity >=0.6.12 <0.9.0;
 
 import "oz/ERC721/ERC721.sol";
 import "oz/ERC721/IERC721.sol";
-import "oz/ERC20/ERC20.sol";
+import "oz/ERC20/IERC20.sol";
 
 
 contract Action {

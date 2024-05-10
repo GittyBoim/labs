@@ -4,7 +4,7 @@
 // import "forge-std/Test.sol";
 // import "forge-std/console.sol";
 // import "@hack/dex/dex.sol";
-// import "@hack/staking/erc20.sol";
+// import "@hack/tokens/erc20.sol";
 
 
 // contract cpTest is Test {
