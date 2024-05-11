@@ -25,7 +25,7 @@ contract Action {
     }
 
     modifier isOwner {
-        require(msg.sender == owner, "only owaner access");
+        require(msg.sender == owner, "only owner access");
         _;
     }
 
