@@ -31,14 +31,11 @@ contract Auction {
 
     function startAuction(address _NFT, uint _tokenId, address _token, uint initialBid, uint _end, address _seller) public isOwner {
 
-<<<<<<< HEAD
-=======
         NFT = IERC721(_NFT);
         
         require(NFT.ownerOf(_tokenId) == _seller, "msg.sender not nft token owner");
         require(_end > block.timestamp, "invalid end date");
         require(!start, "Already there is auction");
->>>>>>> 001aae09e2ee0a5021b4f626ff29b69f298813e1
 
         start = true;
         token = IERC20(_token);
