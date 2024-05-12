@@ -39,8 +39,7 @@ contract Dex {
         }
 
         balanceA = A.balanceOf(address(this));
-        balanceB = B.balanceOf(address(this));
-        
+        balanceB = B.balanceOf(address(this)); 
     }
 
 // מכאן - לבדוק wad
