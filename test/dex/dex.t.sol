@@ -20,12 +20,21 @@ contract DexTest is Test {
     }
 
     function testAddLiqidity() public {
-        A.mint(address(this), 10);
-        B.mint(address(this), 10);
-        A.approve(address(dex), 10);
-        B.approve(address(dex), 10);
-        dex.addLiquidity(10, 10);
+        A.mint(address(this), 10 * 1e18);
+        B.mint(address(this), 10 * 1e18);
+        A.approve(address(dex), 10 * 1e18);
+        B.approve(address(dex), 10 * 1e18);
+        dex.addLiquidity(10 * 1e18, 10 * 1e18);
         assertEq(dex.balances(address(this)), 10);
+
+        A.mint(address(this), 9 * 1e18);
+        B.mint(address(this), 9 * 1e18);
+        A.approve(address(dex), 9 * 1e18);
+        B.approve(address(dex), 9 * 1e18);
+        console.log("before", dex.totalSupply());
+        dex.addLiquidity(9 * 1e18, 9 * 1e18);
+        console.log("jh", dex.totalSupply());
+        assertEq(dex.balances(address(this)), 19);
     }
 
     function testRemoveLiquidity() public {

@@ -2,6 +2,7 @@
 pragma solidity >=0.6.12 <0.9.0;
 
 import "@hack/tokens/ERC20.sol";
+import "forge-std/console.sol";
 
 contract Dex {
 
@@ -10,7 +11,7 @@ contract Dex {
     address public owner;
     uint public balanceA;
     uint public balanceB;
-    uint totalSupply;
+    uint public totalSupply;
     mapping(address => uint) public balances;
 
 
@@ -23,26 +24,29 @@ contract Dex {
     }
 
     function addLiquidity(uint amountA, uint amountB) public {
-        require(totalSupply == 0 || amountA / balanceA == amountB / balanceB, "cant liquidity diffrent value");
+        require(totalSupply == 0 || (amountA * 1e18) / balanceA == (amountB * 1e18) / balanceB, "cant liquidity diffrent value");
 
         A.transferFrom(msg.sender, address(this), amountA);
         B.transferFrom(msg.sender, address(this), amountB);
 
-        balanceA = A.balanceOf(address(this));
-        balanceB = B.balanceOf(address(this));
 
         if(totalSupply == 0) {
             balances[msg.sender] = 10;
+            totalSupply = 10;
         } else {
-            balances[msg.sender] += amountA/balanceA * totalSupply;
+            balances[msg.sender] += (amountA * totalSupply) / balanceA;
+            totalSupply += (amountA * totalSupply) / balanceA;
         }
 
-        totalSupply += balances[msg.sender];
+        balanceA = A.balanceOf(address(this));
+        balanceB = B.balanceOf(address(this));
+        
     }
 
+// מכאן - לבדוק wad
     function removeLiquidity(uint shares) public {
         require(shares > 0, "shares <= 0");
-        require(balances[msg.sender] >= shares, "Not enough balance");
+        require(balances[msg.sender] >= shares, "not enough balance");
 
         balances[msg.sender] -= shares;
 
@@ -74,11 +78,11 @@ contract Dex {
     }
 
     function priceA() public view returns(uint) {
-        return balanceB / balanceA;
+        return (balanceB * 1e18) / balanceA;
     }
 
     function priceB() public view returns(uint) {
-        return balanceA / balanceB;
+        return (balanceA * 1e18) / balanceB;
     }
 
 }

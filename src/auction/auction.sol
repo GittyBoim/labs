@@ -33,7 +33,7 @@ contract Action {
 
         require(NFT.ownerOf(tokenId) == seller, "msg.sender not nft token owner");
         require(_end < block.timestamp, "invalid end date");
-        require(!start, "Already there is auction");
+        require(!start, "already there is auction");
 
         start = true;
         NFT = IERC721(_NFT);
