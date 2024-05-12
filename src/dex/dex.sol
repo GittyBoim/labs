@@ -16,7 +16,7 @@ contract Dex {
 
 
 
-    constructor(address _A, address _B) public {
+    constructor(address _A, address _B) {
         A = IERC20(_A);
         B = IERC20(_B);
         owner = msg.sender;

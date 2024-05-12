@@ -38,7 +38,7 @@ contract CP {
             ? (token0, token1, reserve0, reserve1)
             : (token1, token0, reserve1, reserve0);
 
-        //לאיפה הולכת העמלה  כלומר היא נשארת אבל לא מחושבת זה לא פוגע אחכ ביחס?        
+        //?לאיפה הולכת העמלה  כלומר היא נשארת אבל לא מחושבת זה לא פוגע אחכ ביחס?        
         tokenIn.transferFrom(msg.sender, address(this), amountIn);
         uint amountInWithFee = (amountIn * 997) / 1000;
         amountOut = (reserveOut * amountInWithFee) / (reserveIn + amountInWithFee);
@@ -46,7 +46,6 @@ contract CP {
 
         reserve0 = token0.balanceOf(address(this));
         reserve1 = token1.balanceOf(address(this));
-
     }
 
     function addLiquidity(uint amount0, uint amount1) external returns(uint shares) {
@@ -71,7 +70,6 @@ contract CP {
 
         reserve0 = token0.balanceOf(address(this));
         reserve1 = token1.balanceOf(address(this));
-
     }
     
 

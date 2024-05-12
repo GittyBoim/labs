@@ -16,7 +16,7 @@ contract StakingContract {
 
     MyToken t;
 
-    constructor(address _token) public {
+    constructor(address _token) {
         t = MyToken(_token);
         t.mint(address(this), 1000000 * 1e18);
         reward = 1000000 * 1e18;
@@ -43,7 +43,7 @@ contract StakingContract {
         return userReward;
     }
 
-    function getAmount(address user) public returns(uint) {
+    function getAmount(address user) public view returns(uint) {
         return staking[user].amount;
     }
 

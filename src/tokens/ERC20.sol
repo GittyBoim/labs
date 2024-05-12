@@ -15,7 +15,7 @@ contract MyToken is IERC20 {
 
     uint totalOwnerMint;
 
-    constructor() public {
+    constructor() {
         owner = msg.sender;
         totalOwnerMint = 0;
     }
@@ -38,15 +38,15 @@ contract MyToken is IERC20 {
         return true;
     }
 
-    function name() external view returns (string memory) {
+    function name() external pure returns (string memory) {
         return "STK";
     }
 
-    function symbol() external view returns (string memory) {
+    function symbol() external pure returns (string memory) {
         return "STK";
     }
 
-    function decimals() external view returns (uint8) {
+    function decimals() external pure returns (uint8) {
         return 18;
     }
     

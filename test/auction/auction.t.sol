@@ -30,7 +30,6 @@ contract AuctionTest is Test {
         assertEq(NFT.ownerOf(1), address(a));
     }
 
-
     function testSuggest() public {
         NFT.approve(address(a), 1);
         a.startAuction(address(NFT), 1, address(token), 10, block.timestamp + 7 days, address(this));
