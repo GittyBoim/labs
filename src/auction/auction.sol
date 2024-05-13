@@ -7,7 +7,7 @@ import "forge-std/interfaces/IERC20.sol";
 
 contract Auction {
 
-    IERC721 NFT;
+    IERC721 nft;
     IERC20 token;
     
     address owner;
@@ -28,12 +28,12 @@ contract Auction {
         _;
     }
 
-    function startAuction(address _NFT, uint _tokenId, address _token, uint initialBid, uint _end, address _seller) public isOwner {
-        NFT = IERC721(_NFT);
+    function startAuction(address _nft, uint _tokenId, address _token, uint initialBid, uint _end, address _seller) public isOwner {
+        nft = IERC721(_nft);
         
-        require(NFT.ownerOf(_tokenId) == _seller, "msg.sender not nft token owner");
+        require(nft.ownerOf(_tokenId) == _seller, "msg.sender not nft token owner");
         require(_end > block.timestamp, "invalid end date");
-        require(!start, "Already there is auction");
+        require(!start, "already there is auction");
 
         start = true;
         token = IERC20(_token);
@@ -43,11 +43,11 @@ contract Auction {
         maxBidder = _seller;
         end = _end;
 
-        NFT.transferFrom(seller, address(this), tokenId);  
+        nft.transferFrom(seller, address(this), tokenId);  
     }
 
     function suggest(uint amount) public {
-        require(start && block.timestamp < end, "Not active action");
+        require(start && block.timestamp < end, "not active action");
         require(amount > maxBid, "the bid is lower than the max");
 
         token.transferFrom(msg.sender, address(this), amount);
@@ -64,7 +64,7 @@ contract Auction {
         require(block.timestamp > end, "auction not over");
 
         start = false;
-        NFT.transferFrom(address(this), maxBidder, tokenId);
+        nft.transferFrom(address(this), maxBidder, tokenId);
         token.transfer(seller, maxBid);
     }
 
