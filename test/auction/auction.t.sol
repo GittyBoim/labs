@@ -43,6 +43,13 @@ contract AuctionTest is Test {
         assertEq(a.maxBidder(), address(this));
     }
 
+    function testSuggestNotActiveAuction( ) public {
+        token.mint(address(this), 100);
+        token.approve(address(a), 20);
+        vm.expectRevert("not active action");
+        a.suggest(20);
+    }
+
     function testSuggestSmallerThanMaxBid() public {
         nft.approve(address(a), 1);
         a.startAuction(address(nft), 1, address(token), 10, block.timestamp + 7 days, address(this));
