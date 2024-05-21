@@ -39,11 +39,11 @@ contract MyToken is IERC20 {
     }
 
     function name() external pure returns (string memory) {
-        return "STK";
+        return "weth";
     }
 
     function symbol() external pure returns (string memory) {
-        return "STK";
+        return "weth ";
     }
 
     function decimals() external pure returns (uint8) {
