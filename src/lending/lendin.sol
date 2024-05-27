@@ -88,6 +88,7 @@ contract lending {
         //swap user eth - borrowers[to].collateral to dai
 
         borrowers[msg.sender] = 0;
+        borrowers[msg.sender].collateral = 0;
     }
 
 }
