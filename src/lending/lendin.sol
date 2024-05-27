@@ -76,7 +76,7 @@ contract lending {
     }
 
     function getBorrowRatio(uint eth, uint dai) public view returns (uint) {
-        (uint80 roundID, int256 price, uint256 startedAt, uint256 timeStamp, uint80 answeredInRound) =
+        (, int256 price, , , ) =
             priceFeed.latestRoundData();
         return (uint(price)) ;
         return (uint(price) * eth * 1e18) / (dai * 1e8);
