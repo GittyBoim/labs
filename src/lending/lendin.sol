@@ -20,7 +20,7 @@ contract lending {
     mapping(address => uint256) public daiDepositors;
     mapping(address => borrow) borrowers;
 
-    constructor(address _bond, address _dai, uint minRatio) {
+    constructor(address _bond, address _dai, uint _minRatio) {
         owner = msg.sender;
         bond = MyIERC20(_bond);
         dai = MyIERC20(_dai);
@@ -53,7 +53,7 @@ contract lending {
     }
 
     function removeCollateral(uint amount) external {
-        require(getBorrowRatio(borrowers[msg.sender].collatreal - amount, borrowers[msg.sender].borrow) >= minRatio,
+        require(getBorrowRatio(borrowers[msg.sender].collateral - amount, borrowers[msg.sender].borrow) >= minRatio,
         "borrow ratio less than the min");
 
         borrowers[msg.sender].collateral -= amount;
@@ -61,7 +61,7 @@ contract lending {
     }
 
     function requestBorrow(uint amount) external {
-        require(getBorrowRatio(borrowers[msg.sender].collatreal, borrowers[msg.sender].borrow + amount) >= minRatio,
+        require(getBorrowRatio(borrowers[msg.sender].collateral, borrowers[msg.sender].borrow + amount) >= minRatio,
         "borrow ratio less than the min");
 
         borrowers[msg.sender].borrow += amount;
@@ -69,7 +69,7 @@ contract lending {
     }
 
     function repayBorrow(uint256 amount) external {
-        require(borrowers[msg.sender] <= amount, "amout greater than the borrow amount");
+        require(borrowers[msg.sender].borrow <= amount, "amout greater than the borrow amount");
 
         dai.transferFrom(msg.sender, address(this), amount);
         borrowers[msg.sender].borrow -= amount;
@@ -79,7 +79,7 @@ contract lending {
         (uint80 roundID, int256 price, uint256 startedAt, uint256 timeStamp, uint80 answeredInRound) =
             priceFeed.latestRoundData();
         return (uint(price)) ;
-        return (price * eth * 1e18) / (dai * 1e8);
+        return (uint(price) * eth * 1e18) / (dai * 1e8);
     }
 
     function discharge(address to) public isOwner {
@@ -87,8 +87,8 @@ contract lending {
 
         //swap user eth - borrowers[to].collateral to dai
 
-        borrowers[msg.sender] = 0;
-        borrowers[msg.sender].collateral = 0;
+        borrowers[to].borrow = 0;
+        borrowers[to].collateral = 0;
     }
 
 }

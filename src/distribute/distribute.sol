@@ -5,7 +5,7 @@ contract distributeContract {
 
     address[] public addressList;
 
-    constructor() public {}
+    constructor() {}
 
     function addUser(address user) public payable {
         addressList.push(user);
