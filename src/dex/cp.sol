@@ -37,8 +37,7 @@ contract CP {
         =  isToken0 
             ? (token0, token1, reserve0, reserve1)
             : (token1, token0, reserve1, reserve0);
-
-        //?לאיפה הולכת העמלה  כלומר היא נשארת אבל לא מחושבת זה לא פוגע אחכ ביחס?        
+       
         tokenIn.transferFrom(msg.sender, address(this), amountIn);
         uint amountInWithFee = (amountIn * 997) / 1000;
         amountOut = (reserveOut * amountInWithFee) / (reserveIn + amountInWithFee);
@@ -54,11 +53,9 @@ contract CP {
 
         if(reserve0 > 0 || reserve1 > 0)
             require(reserve0 * amount1 == reserve1 * amount0,  "x/y != dx/dy");
-        //shares - יכול להיות כל מספר??
         if(totalSupply == 0) {
             shares = sqrt(amount0 * amount1);
         } else {
-            //לא שווים תמיד? בגלל ה require?
             shares = min(
                 (amount0 * totalSupply) / reserve0,
                 (amount1 * totalSupply) / reserve1

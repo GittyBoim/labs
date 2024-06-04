@@ -42,7 +42,6 @@ contract Dex {
         balanceB = B.balanceOf(address(this)); 
     }
 
-// מכאן - לבדוק wad
     function removeLiquidity(uint shares) public {
         require(shares > 0, "shares <= 0");
         require(balances[msg.sender] >= shares, "not enough balance");
