@@ -15,9 +15,7 @@ fn rotateImage90DegreesClockwise(originalImage: Array<u256> ) {
     let temp: u256 = originalImage[i];
     originalImage[i] = originalImage[j];
     originalImage[j] = temp;        
-
-
-
+    
     }
 }
 
