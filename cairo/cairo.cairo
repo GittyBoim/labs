@@ -1,0 +1,2 @@
+use debug::PrintTrait;
+.print();::
